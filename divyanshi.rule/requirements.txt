@@ -1,0 +1,23 @@
+# Legal Metrology Compliance System - Required Libraries
+# Core dependencies for the compliance checking system
+
+# Essential Libraries (Required)
+Flask>=2.3.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+numpy>=1.24.0
+requests>=2.31.0
+
+# Optional but Recommended
+jsonschema>=4.19.0
+python-dateutil>=2.8.0
+colorama>=0.4.6
+openpyxl>=3.1.0
+
+# Additional Features (Optional)
+# Uncomment if you need these features:
+# PyPDF2>=3.0.0          # For PDF processing
+# rich>=13.5.0           # For better console output
+# tqdm>=4.66.0           # For progress bars
+# seaborn>=0.12.0        # For advanced visualizations
+# pytest>=7.4.0          # For testing

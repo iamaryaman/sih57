@@ -1,0 +1,105 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Legal Metrology Compliance Report</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 20px; }
+                .header { background-color: #f0f0f0; padding: 20px; border-radius: 5px; }
+                .summary { background-color: #e8f4f8; padding: 15px; margin: 20px 0; border-radius: 5px; }
+                .compliant { color: green; font-weight: bold; }
+                .non-compliant { color: red; font-weight: bold; }
+                .critical { background-color: #ffebee; }
+                .high { background-color: #fff3e0; }
+                table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+                th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                th { background-color: #f2f2f2; }
+                .violation { margin: 5px 0; padding: 5px; border-left: 3px solid #ccc; }
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>Legal Metrology Compliance Report</h1>
+                <p><strong>Generated:</strong> 2025-10-07 00:47:51</p>
+                <p><strong>Total Products Analyzed:</strong> 2</p>
+            </div>
+            
+            <div class="summary">
+                <h2>Summary Statistics</h2>
+                <table>
+                    <tr><td>Compliant Products</td><td class="compliant">0</td></tr>
+                    <tr><td>Non-Compliant Products</td><td class="non-compliant">2</td></tr>
+                    <tr><td>Critical Violations</td><td>1</td></tr>
+                    <tr><td>High Violations</td><td>5</td></tr>
+                    <tr><td>Medium Violations</td><td>1</td></tr>
+                    <tr><td>Low Violations</td><td>0</td></tr>
+                </table>
+            </div>
+            
+            <h2>Product Details</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Product Title</th>
+                        <th>Compliance Status</th>
+                        <th>Violations</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+        
+                    <tr class="high">
+                        <td>PROD001</td>
+                        <td>Premium Basmati Rice</td>
+                        <td class="non-compliant">NON_COMPLIANT_HIGH</td>
+                        <td>1</td>
+                        <td>
+            
+                            <div class="violation">
+                                <strong>missing_prepackaged_declaration:</strong> Missing required declaration: package_date<br>
+                                <small><strong>Fix:</strong> Add package_date to product listing</small>
+                            </div>
+                </td></tr>
+                    <tr class="critical">
+                        <td>PROD002</td>
+                        <td>Organic Wheat Flour - 5 pounds</td>
+                        <td class="non-compliant">NON_COMPLIANT_CRITICAL</td>
+                        <td>6</td>
+                        <td>
+            
+                            <div class="violation">
+                                <strong>non_standard_weight_unit:</strong> Non-standard weight unit detected in weight<br>
+                                <small><strong>Fix:</strong> Use standard metric units: kg, g, mg</small>
+                            </div>
+                
+                            <div class="violation">
+                                <strong>non_standard_length_unit:</strong> Non-standard length unit detected in dimensions<br>
+                                <small><strong>Fix:</strong> Use standard metric units: m, cm, mm</small>
+                            </div>
+                
+                            <div class="violation">
+                                <strong>non_standard_unit_in_pricing:</strong> Price per unit uses non-standard measurement units<br>
+                                <small><strong>Fix:</strong> Quote prices only in standard metric units</small>
+                            </div>
+                
+                            <div class="violation">
+                                <strong>missing_prepackaged_declaration:</strong> Missing required declaration: manufacturer_details<br>
+                                <small><strong>Fix:</strong> Add manufacturer_details to product listing</small>
+                            </div>
+                
+                            <div class="violation">
+                                <strong>missing_prepackaged_declaration:</strong> Missing required declaration: package_date<br>
+                                <small><strong>Fix:</strong> Add package_date to product listing</small>
+                            </div>
+                
+                            <div class="violation">
+                                <strong>non_standard_unit_in_description:</strong> Non-standard units found in title<br>
+                                <small><strong>Fix:</strong> Replace with standard metric units in product descriptions</small>
+                            </div>
+                </td></tr>
+                </tbody>
+            </table>
+        </body>
+        </html>
+        

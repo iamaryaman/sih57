@@ -1,0 +1,203 @@
+{
+  "report_metadata": {
+    "generated_at": "2025-10-07T00:49:45.542292",
+    "report_type": "Legal Metrology Compliance Report",
+    "total_products_analyzed": 5
+  },
+  "summary_statistics": {
+    "total_products": 5,
+    "compliant_products": 2,
+    "non_compliant_products": 3,
+    "critical_violations": 2,
+    "high_violations": 9,
+    "medium_violations": 3,
+    "low_violations": 0,
+    "violation_types": {
+      "non_standard_weight_unit": 2,
+      "non_standard_length_unit": 2,
+      "non_standard_unit_in_pricing": 2,
+      "missing_prepackaged_declaration": 5,
+      "non_standard_unit_in_description": 3
+    }
+  },
+  "detailed_results": [
+    {
+      "product_id": "PROD001",
+      "product_title": "Premium Basmati Rice - Compliant Product",
+      "compliance_status": "COMPLIANT",
+      "total_violations": 0,
+      "violations": []
+    },
+    {
+      "product_id": "PROD002",
+      "product_title": "Organic Wheat Flour - Non-Compliant (Imperial Units)",
+      "compliance_status": "NON_COMPLIANT_CRITICAL",
+      "total_violations": 6,
+      "violations": [
+        {
+          "type": "non_standard_weight_unit",
+          "severity": "high",
+          "description": "Non-standard weight unit detected in weight",
+          "section": "Section 11, 25",
+          "penalty": "Fine up to ₹25,000, imprisonment up to 6 months for repeat offenses",
+          "fix": "Use standard metric units: kg, g, mg",
+          "field": "weight",
+          "detected_value": "5 lbs"
+        },
+        {
+          "type": "non_standard_length_unit",
+          "severity": "high",
+          "description": "Non-standard length unit detected in dimensions",
+          "section": "Section 11, 25",
+          "penalty": "Fine up to ₹25,000, imprisonment up to 6 months for repeat offenses",
+          "fix": "Use standard metric units: m, cm, mm",
+          "field": "dimensions",
+          "detected_value": "12 x 8 x 4 inches"
+        },
+        {
+          "type": "non_standard_unit_in_pricing",
+          "severity": "critical",
+          "description": "Price per unit uses non-standard measurement units",
+          "section": "Section 11",
+          "penalty": "Fine up to ₹10,000, imprisonment up to 1 year for repeat offenses",
+          "fix": "Quote prices only in standard metric units",
+          "field": "price_per_unit",
+          "detected_value": "₹150 per pound"
+        },
+        {
+          "type": "missing_prepackaged_declaration",
+          "severity": "high",
+          "description": "Missing required declaration: manufacturer_details",
+          "section": "Section 18",
+          "penalty": "Fine up to ₹1,00,000, imprisonment up to 1 year for repeat offenses",
+          "fix": "Add manufacturer_details to product listing",
+          "field": "manufacturer_details",
+          "detected_value": "Missing"
+        },
+        {
+          "type": "missing_prepackaged_declaration",
+          "severity": "high",
+          "description": "Missing required declaration: package_date",
+          "section": "Section 18",
+          "penalty": "Fine up to ₹1,00,000, imprisonment up to 1 year for repeat offenses",
+          "fix": "Add package_date to product listing",
+          "field": "package_date",
+          "detected_value": "Missing"
+        },
+        {
+          "type": "non_standard_unit_in_description",
+          "severity": "medium",
+          "description": "Non-standard units found in description",
+          "section": "Section 11",
+          "penalty": "Fine up to ₹10,000, imprisonment up to 1 year for repeat offenses",
+          "fix": "Replace with standard metric units in product descriptions",
+          "field": "description",
+          "detected_value": "Fresh wheat flour, 5 pound bag, organic certified"
+        }
+      ]
+    },
+    {
+      "product_id": "PROD003",
+      "product_title": "Cooking Oil - Compliant Product",
+      "compliance_status": "COMPLIANT",
+      "total_violations": 0,
+      "violations": []
+    },
+    {
+      "product_id": "PROD004",
+      "product_title": "Tea Leaves - Mixed Compliance Issues",
+      "compliance_status": "NON_COMPLIANT_HIGH",
+      "total_violations": 2,
+      "violations": [
+        {
+          "type": "missing_prepackaged_declaration",
+          "severity": "high",
+          "description": "Missing required declaration: package_date",
+          "section": "Section 18",
+          "penalty": "Fine up to ₹1,00,000, imprisonment up to 1 year for repeat offenses",
+          "fix": "Add package_date to product listing",
+          "field": "package_date",
+          "detected_value": "Missing"
+        },
+        {
+          "type": "non_standard_unit_in_description",
+          "severity": "medium",
+          "description": "Non-standard units found in features",
+          "section": "Section 11",
+          "penalty": "Fine up to ₹10,000, imprisonment up to 1 year for repeat offenses",
+          "fix": "Replace with standard metric units in product descriptions",
+          "field": "features",
+          "detected_value": "Available in 1 lb and 2 lb packs also"
+        }
+      ]
+    },
+    {
+      "product_id": "PROD005",
+      "product_title": "Honey - Critical Violations",
+      "compliance_status": "NON_COMPLIANT_CRITICAL",
+      "total_violations": 6,
+      "violations": [
+        {
+          "type": "non_standard_weight_unit",
+          "severity": "high",
+          "description": "Non-standard weight unit detected in weight",
+          "section": "Section 11, 25",
+          "penalty": "Fine up to ₹25,000, imprisonment up to 6 months for repeat offenses",
+          "fix": "Use standard metric units: kg, g, mg",
+          "field": "weight",
+          "detected_value": "2 lbs"
+        },
+        {
+          "type": "non_standard_length_unit",
+          "severity": "high",
+          "description": "Non-standard length unit detected in dimensions",
+          "section": "Section 11, 25",
+          "penalty": "Fine up to ₹25,000, imprisonment up to 6 months for repeat offenses",
+          "fix": "Use standard metric units: m, cm, mm",
+          "field": "dimensions",
+          "detected_value": "6 x 6 x 8 inches"
+        },
+        {
+          "type": "non_standard_unit_in_pricing",
+          "severity": "critical",
+          "description": "Price per unit uses non-standard measurement units",
+          "section": "Section 11",
+          "penalty": "Fine up to ₹10,000, imprisonment up to 1 year for repeat offenses",
+          "fix": "Quote prices only in standard metric units",
+          "field": "price_per_unit",
+          "detected_value": "₹500 per pound"
+        },
+        {
+          "type": "missing_prepackaged_declaration",
+          "severity": "high",
+          "description": "Missing required declaration: manufacturer_details",
+          "section": "Section 18",
+          "penalty": "Fine up to ₹1,00,000, imprisonment up to 1 year for repeat offenses",
+          "fix": "Add manufacturer_details to product listing",
+          "field": "manufacturer_details",
+          "detected_value": "Missing"
+        },
+        {
+          "type": "missing_prepackaged_declaration",
+          "severity": "high",
+          "description": "Missing required declaration: package_date",
+          "section": "Section 18",
+          "penalty": "Fine up to ₹1,00,000, imprisonment up to 1 year for repeat offenses",
+          "fix": "Add package_date to product listing",
+          "field": "package_date",
+          "detected_value": "Missing"
+        },
+        {
+          "type": "non_standard_unit_in_description",
+          "severity": "medium",
+          "description": "Non-standard units found in description",
+          "section": "Section 11",
+          "penalty": "Fine up to ₹10,000, imprisonment up to 1 year for repeat offenses",
+          "fix": "Replace with standard metric units in product descriptions",
+          "field": "description",
+          "detected_value": "Pure honey, 2 pound jar, natural and unprocessed"
+        }
+      ]
+    }
+  ]
+}

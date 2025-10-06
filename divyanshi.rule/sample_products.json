@@ -1,0 +1,115 @@
+[
+  {
+    "id": "PROD001",
+    "title": "Premium Basmati Rice - Compliant Product",
+    "description": "High quality basmati rice, 5 kg package, premium grade",
+    "weight": "5 kg",
+    "dimensions": "30 x 20 x 10 cm",
+    "price_per_unit": "₹200 per kg",
+    "is_prepackaged": true,
+    "net_quantity": "5 kg",
+    "manufacturer_details": "ABC Foods Pvt Ltd, Delhi",
+    "package_date": "2023-01-15"
+  },
+  {
+    "id": "PROD002",
+    "title": "Organic Wheat Flour - Non-Compliant (Imperial Units)",
+    "description": "Fresh wheat flour, 5 pound bag, organic certified",
+    "weight": "5 lbs",
+    "dimensions": "12 x 8 x 4 inches",
+    "price_per_unit": "₹150 per pound",
+    "is_prepackaged": true,
+    "net_quantity": "5 pounds"
+  },
+  {
+    "id": "PROD003",
+    "title": "Cooking Oil - Compliant Product",
+    "description": "Refined sunflower oil, 1 litre bottle",
+    "weight": "1 kg",
+    "volume": "1 l",
+    "dimensions": "25 x 8 x 8 cm",
+    "price_per_unit": "₹120 per l",
+    "is_prepackaged": true,
+    "net_quantity": "1 l",
+    "manufacturer_details": "XYZ Oil Mills, Mumbai",
+    "package_date": "2023-02-10"
+  },
+  {
+    "id": "PROD004",
+    "title": "Tea Leaves - Mixed Compliance Issues",
+    "description": "Premium black tea, 500 gram pack, imported from 5 different gardens",
+    "weight": "500 grams",
+    "dimensions": "20 x 15 x 5 cm",
+    "price_per_unit": "₹800 per kg",
+    "is_prepackaged": true,
+    "net_quantity": "500 g",
+    "manufacturer_details": "DEF Tea Co.",
+    "features": "Available in 1 lb and 2 lb packs also"
+  },
+  {
+    "id": "PROD005",
+    "title": "Honey - Critical Violations",
+    "description": "Pure honey, 2 pound jar, natural and unprocessed",
+    "weight": "2 lbs",
+    "volume": "32 fl oz",
+    "dimensions": "6 x 6 x 8 inches",
+    "price_per_unit": "₹500 per pound",
+    "is_prepackaged": true,
+    "net_quantity": "2 pounds"
+  },
+  {
+    "id": "PROD006",
+    "title": "Pulses Mix - Partially Compliant",
+    "description": "Mixed dal, 1 kg pack, contains toor, moong and chana dal",
+    "weight": "1000 g",
+    "dimensions": "25 x 15 x 8 cm",
+    "price_per_unit": "₹180 per kg",
+    "is_prepackaged": true,
+    "net_quantity": "1 kg",
+    "manufacturer_details": "GHI Agro Products"
+  },
+  {
+    "id": "PROD007",
+    "title": "Spice Mix - Traditional Units Problem",
+    "description": "Garam masala powder, 1 ser pack, traditional recipe",
+    "weight": "1 ser",
+    "dimensions": "15 x 10 x 5 cm",
+    "price_per_unit": "₹200 per ser",
+    "is_prepackaged": true,
+    "net_quantity": "1 ser",
+    "specifications": "Also available in 500g and 1 kg packs"
+  },
+  {
+    "id": "PROD008",
+    "title": "Biscuits - Missing Pre-packaged Info",
+    "description": "Chocolate biscuits, family pack",
+    "weight": "500 g",
+    "dimensions": "20 x 15 x 5 cm",
+    "price_per_unit": "₹80 per pack",
+    "is_prepackaged": true,
+    "net_quantity": "500 g"
+  },
+  {
+    "id": "PROD009",
+    "title": "Fruit Juice - Volume Issues",
+    "description": "Fresh orange juice, 1 gallon bottle, no preservatives",
+    "volume": "1 gallon",
+    "dimensions": "30 x 12 x 12 cm",
+    "price_per_unit": "₹300 per gallon",
+    "is_prepackaged": true,
+    "net_quantity": "1 gallon",
+    "manufacturer_details": "JKL Beverages Ltd"
+  },
+  {
+    "id": "PROD010",
+    "title": "Dry Fruits - Multiple Unit Issues",
+    "description": "Mixed dry fruits, 2 lb pack, contains almonds (8 oz), cashews (6 oz), raisins (4 oz)",
+    "weight": "2 pounds",
+    "dimensions": "12 x 8 x 3 inches",
+    "price_per_unit": "₹1200 per pound",
+    "is_prepackaged": true,
+    "net_quantity": "2 lbs",
+    "manufacturer_details": "MNO Dry Fruits",
+    "features": "Individual packets of 1 oz each"
+  }
+]

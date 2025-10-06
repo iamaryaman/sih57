@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulk Compliance Check</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
+        .header { background-color: #2c3e50; color: white; padding: 15px 0; text-align: center; }
+        .container { max-width: 800px; margin: 20px auto; padding: 0 20px; }
+        .form-section { background: white; border-radius: 8px; padding: 30px; margin-bottom: 20px; }
+        .upload-area { border: 2px dashed #ddd; border-radius: 10px; padding: 40px; text-align: center; margin: 20px 0; }
+        .upload-area.dragover { border-color: #3498db; background-color: #f8f9fa; }
+        .btn { background-color: #3498db; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin: 10px; }
+        .btn:hover { background-color: #2980b9; }
+        .results { background: white; border-radius: 8px; padding: 30px; margin-top: 20px; display: none; }
+        .back-btn { display: inline-block; background-color: #95a5a6; color: white; padding: 8px 16px; text-decoration: none; border-radius: 3px; margin-bottom: 20px; }
+        .progress { width: 100%; height: 20px; background-color: #ecf0f1; border-radius: 10px; overflow: hidden; margin: 20px 0; display: none; }
+        .progress-bar { height: 100%; background-color: #3498db; width: 0%; transition: width 0.3s; }
+        .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .summary-card { background: #ecf0f1; padding: 20px; border-radius: 5px; text-align: center; }
+        .download-links { margin-top: 20px; }
+        .download-links a { display: inline-block; background-color: #27ae60; color: white; padding: 8px 16px; text-decoration: none; border-radius: 3px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Bulk Compliance Check</h1>
+    </div>
+    
+    <div class="container">
+        <a href="/" class="back-btn">← Back to Dashboard</a>
+        
+        <div class="form-section">
+            <h2>Upload Products File</h2>
+            <p>Upload a JSON file containing your product listings for bulk compliance checking.</p>
+            
+            <div class="upload-area" id="uploadArea">
+                <p>Drag & drop your JSON file here or click to browse</p>
+                <input type="file" id="fileInput" accept=".json" style="display: none;">
+                <button type="button" class="btn" onclick="document.getElementById('fileInput').click()">Choose File</button>
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <label>Report Format:</label>
+                <select id="reportFormat">
+                    <option value="json">JSON</option>
+                    <option value="html">HTML</option>
+                    <option value="csv">CSV</option>
+                </select>
+                
+                <button type="button" class="btn" id="checkBtn" disabled>Check Compliance</button>
+            </div>
+            
+            <div class="progress" id="progress">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+        
+        <div class="results" id="results">
+            <h2>Bulk Compliance Results</h2>
+            <div id="results-content"></div>
+        </div>
+    </div>
+
+    <script>
+        let selectedFile = null;
+        
+        // File upload handling
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const checkBtn = document.getElementById('checkBtn');
+        
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0 && files[0].name.endsWith('.json')) {
+                handleFileSelect(files[0]);
+            } else {
+                alert('Please select a valid JSON file');
+            }
+        });
+        
+        fileInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                handleFileSelect(e.target.files[0]);
+            }
+        });
+        
+        function handleFileSelect(file) {
+            selectedFile = file;
+            uploadArea.innerHTML = `<p>Selected: ${file.name}</p><p>Size: ${(file.size/1024).toFixed(1)} KB</p>`;
+            checkBtn.disabled = false;
+        }
+        
+        // Bulk compliance check
+        checkBtn.addEventListener('click', async function() {
+            if (!selectedFile) return;
+            
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+            formData.append('format', document.getElementById('reportFormat').value);
+            
+            // Show progress
+            document.getElementById('progress').style.display = 'block';
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = '20%';
+            
+            try {
+                const response = await fetch('/api/check-bulk', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                progressBar.style.width = '80%';
+                
+                const result = await response.json();
+                
+                progressBar.style.width = '100%';
+                
+                if (result.success) {
+                    displayBulkResults(result.report);
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                alert('Error processing file: ' + error.message);
+            } finally {
+                setTimeout(() => {
+                    document.getElementById('progress').style.display = 'none';
+                    progressBar.style.width = '0%';
+                }, 1000);
+            }
+        });
+        
+        function displayBulkResults(report) {
+            const resultsDiv = document.getElementById('results');
+            const contentDiv = document.getElementById('results-content');
+            
+            const summary = report.summary;
+            
+            let html = '<h3>Summary Statistics</h3>';
+            html += '<div class="summary-grid">';
+            html += `<div class="summary-card"><h4>${summary.total_products}</h4><p>Total Products</p></div>`;
+            html += `<div class="summary-card"><h4>${summary.compliant_products}</h4><p>Compliant</p></div>`;
+            html += `<div class="summary-card"><h4>${summary.non_compliant_products}</h4><p>Non-Compliant</p></div>`;
+            html += `<div class="summary-card"><h4>${summary.critical_violations}</h4><p>Critical Issues</p></div>`;
+            html += '</div>';
+            
+            // Compliance rate
+            const complianceRate = summary.total_products > 0 ? 
+                ((summary.compliant_products / summary.total_products) * 100).toFixed(1) : 0;
+            
+            html += `<h3>Overall Compliance Rate: ${complianceRate}%</h3>`;
+            
+            // Download links
+            html += '<div class="download-links">';
+            html += '<h4>Download Reports:</h4>';
+            report.files_generated.forEach(file => {
+                html += `<a href="/download-report/${report.report_timestamp}" download="${file}">${file}</a>`;
+            });
+            html += '</div>';
+            
+            // Top violation types
+            if (Object.keys(summary.violation_types).length > 0) {
+                html += '<h3>Most Common Violations:</h3><ul>';
+                const sortedViolations = Object.entries(summary.violation_types)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5);
+                
+                sortedViolations.forEach(([type, count]) => {
+                    html += `<li>${type.replace(/_/g, ' ').toUpperCase()}: ${count} occurrences</li>`;
+                });
+                html += '</ul>';
+            }
+            
+            contentDiv.innerHTML = html;
+            resultsDiv.style.display = 'block';
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
+        
