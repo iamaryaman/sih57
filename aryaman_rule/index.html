@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legal Metrology Compliance Rule Engine</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="container header-inner">
+      <div>
+        <h1>Legal Metrology Compliance Rule Engine</h1>
+        <p class="subtitle">Legal Metrology (Packaged Commodities) Rules, 2011</p>
+      </div>
+      <div class="score-block">
+        <div class="progress-wrapper" aria-label="Overall Compliance Score">
+          <div class="progress-bar" id="overallProgress" style="width: 0%"></div>
+        </div>
+        <div class="score-text"><span id="scoreText">Score: 0%</span></div>
+      </div>
+    </div>
+    <nav class="tabs" aria-label="Primary">
+      <div class="container tabs-inner">
+        <button class="tab btn btn--secondary btn--sm" data-target="#section-input">Package Input</button>
+        <button class="tab btn btn--secondary btn--sm" data-target="#section-rules">Rule Dashboard</button>
+        <button class="tab btn btn--secondary btn--sm" data-target="#section-results">Validation Results</button>
+        <button class="tab btn btn--secondary btn--sm" data-target="#section-recommendations">Recommendations</button>
+        <button class="tab btn btn--secondary btn--sm" data-target="#section-export">Export / Report</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container main">
+    <!-- INPUT SECTION -->
+    <section id="section-input" class="section is-active" aria-labelledby="section-input-title">
+      <h2 id="section-input-title" class="mb-8">Package Information Input Form</h2>
+
+      <div class="card mb-8">
+        <div class="card__body">
+          <div class="form-steps">
+            <div class="step is-active" data-step="1">1. Basic Info</div>
+            <div class="step" data-step="2">2. Mandatory Declarations</div>
+            <div class="step" data-step="3">3. Format Specifications</div>
+            <div class="step" data-step="4">4. QA & AI Inputs</div>
+          </div>
+        </div>
+      </div>
+
+      <form id="packageForm" class="card">
+        <div class="card__body">
+          <!-- STEP 1: BASIC INFO -->
+          <div class="form-step" data-step="1">
+            <div class="grid">
+              <div class="form-group">
+                <label for="productName" class="form-label">Product name</label>
+                <input id="productName" name="productName" type="text" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label for="category" class="form-label">Category</label>
+                <select id="category" name="category" class="form-control" required></select>
+              </div>
+              <div class="form-group">
+                <label for="packageType" class="form-label">Package type</label>
+                <select id="packageType" name="packageType" class="form-control" required>
+                  <option value="Retail">Retail</option>
+                  <option value="Wholesale">Wholesale</option>
+                  <option value="Export">Export</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="packageShape" class="form-label">Package shape</label>
+                <select id="packageShape" name="packageShape" class="form-control" required>
+                  <option>Rectangular</option>
+                  <option>Cylindrical</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Package dimensions (cm)</label>
+                <div class="three-col">
+                  <input id="lengthCm" type="number" min="0" step="0.1" class="form-control" placeholder="Length" />
+                  <input id="widthCm" type="number" min="0" step="0.1" class="form-control" placeholder="Width" />
+                  <input id="heightCm" type="number" min="0" step="0.1" class="form-control" placeholder="Height" />
+                </div>
+                <small class="help">Used for deceptive packaging check and font size applicability.</small>
+              </div>
+              <div class="form-group">
+                <label for="labelNotes" class="form-label">Optional label text/claims (for language/prohibited terms check)</label>
+                <textarea id="labelNotes" rows="2" class="form-control" placeholder="Enter any additional label wording..."></textarea>
+              </div>
+              <div class="form-group">
+                <label for="institutionalUse" class="form-label">Institutional use</label>
+                <select id="institutionalUse" class="form-control">
+                  <option value="No">No</option>
+                  <option value="Yes">Yes</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2: MANDATORY DECLARATIONS -->
+          <div class="form-step hidden" data-step="2">
+            <div class="grid">
+              <div class="form-group">
+                <label for="manufacturerName" class="form-label">Manufacturer/Packer name</label>
+                <input id="manufacturerName" type="text" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Address - Street</label>
+                <input id="addrStreet" type="text" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Address - City</label>
+                <input id="addrCity" type="text" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Address - State</label>
+                <input id="addrState" type="text" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">PIN (6 digits)</label>
+                <input id="addrPIN" type="text" inputmode="numeric" pattern="^\d{6}$" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Net quantity</label>
+                <div class="two-col">
+                  <input id="netQty" type="number" min="0" step="0.01" class="form-control" placeholder="Value" required />
+                  <select id="netUnit" class="form-control" required>
+                    <option value="g">g</option>
+                    <option value="kg">kg</option>
+                    <option value="ml">ml</option>
+                    <option value="l">l</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Declared MRP string
+                  <span title="Format: 'MRP Rs. X inclusive of all taxes'">(?)</span>
+                </label>
+                <input id="mrpString" type="text" class="form-control" placeholder="MRP Rs. 50 inclusive of all taxes" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Manufacturing date (month/year)</label>
+                <input id="mfgMonth" type="month" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Consumer complaint contact (phone or email)</label>
+                <input id="consumerContact" type="text" class="form-control" placeholder="e.g., 1800-123-4567 or support@example.com" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Measured average weight/volume for QA (same unit as declared)</label>
+                <input id="measuredAvg" type="number" min="0" step="0.01" class="form-control" placeholder="Used for error tolerance" />
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3: FORMAT SPECIFICATIONS -->
+          <div class="form-step hidden" data-step="3">
+            <div class="grid">
+              <div class="form-group">
+                <label class="form-label">Label material type</label>
+                <select id="labelMaterial" class="form-control">
+                  <option value="Printed/Sticker">Printed/Sticker</option>
+                  <option value="Molded/Embossed">Molded/Embossed</option>
+                </select>
+                <small class="help">Affects minimum font size requirements.</small>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Font size for MRP (mm)</label>
+                <input id="mrpFontMm" type="number" min="0" step="0.1" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Font size for Net Quantity (mm)</label>
+                <input id="qtyFontMm" type="number" min="0" step="0.1" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Average letter width for Net Quantity text (mm)
+                  <span title="Minimum width must be at least one-third of the height">(i)</span>
+                </label>
+                <input id="avgLetterWidthMm" type="number" min="0" step="0.1" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Font color</label>
+                <select id="fontColor" class="form-control">
+                  <option value="#13343B">Slate 900</option>
+                  <option value="#626C71">Slate 500</option>
+                  <option value="#FFFFFF">White</option>
+                  <option value="#000000">Black</option>
+                  <option value="#21808D">Teal 500</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Background color</label>
+                <select id="bgColor" class="form-control">
+                  <option value="#FFFFFD">Cream 100</option>
+                  <option value="#FCFCF9">Cream 50</option>
+                  <option value="#262828">Charcoal 800</option>
+                  <option value="#1F2121">Charcoal 700</option>
+                  <option value="#FFFFFF">White</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Sticker usage</label>
+                <select id="stickerUse" class="form-control">
+                  <option value="None">None</option>
+                  <option value="MRP reduction only">MRP reduction only</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 4: QA & AI INPUTS -->
+          <div class="form-step hidden" data-step="4">
+            <div class="grid">
+              <div class="form-group">
+                <label class="form-label">Batch net weights/volumes (comma-separated)</label>
+                <input id="batchWeights" type="text" class="form-control" placeholder="e.g., 100, 101.5, 99.8" />
+                <small class="help">Used for ±2g/ml variance check</small>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Label similarity (%)</label>
+                <input id="labelSimilarity" type="number" min="0" max="100" step="1" class="form-control" value="100" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">OCR confidence (%) for critical fields</label>
+                <input id="ocrConfidence" type="number" min="0" max="100" step="1" class="form-control" value="100" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Regulation last sync date</label>
+                <input id="syncDate" type="date" class="form-control" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card__footer flex justify-between">
+          <button type="button" class="btn btn--outline" id="prevStep">Back</button>
+          <div class="flex gap-8">
+            <button type="button" class="btn btn--secondary" id="recalcBtn">Validate Now</button>
+            <button type="button" class="btn btn--primary" id="nextStep">Next</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- RULE DASHBOARD -->
+    <section id="section-rules" class="section" aria-labelledby="section-rules-title">
+      <h2 id="section-rules-title" class="mb-8">Rule Engine Dashboard</h2>
+      <div id="chartCard" class="card mb-8">
+        <div class="card__body">
+          <div class="flex justify-between items-center mb-8">
+            <h3>Rule Status Summary</h3>
+            <button id="refreshChart" class="btn btn--outline btn--sm">Refresh</button>
+          </div>
+          <div class="chart-container" style="height: 260px; position: relative;">
+            <canvas id="statusChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div id="rulesContainer" class="rules-grid"></div>
+    </section>
+
+    <!-- VALIDATION RESULTS -->
+    <section id="section-results" class="section" aria-labelledby="section-results-title">
+      <h2 id="section-results-title" class="mb-8">Validation Results</h2>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card__body">
+            <h3 class="mb-8">Compliance Score</h3>
+            <div class="flex items-center gap-16">
+              <div class="progress-wrapper">
+                <div class="progress-bar" id="resultsProgress" style="width: 0%"></div>
+              </div>
+              <div class="score-text" id="resultsScore">0%</div>
+            </div>
+            <div class="mt-8">
+              <div class="status-list" id="statusBreakdown"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="mb-8">Exemption Analysis</h3>
+            <ul id="exemptionsList" class="list"></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-8">
+        <div class="card__body">
+          <h3 class="mb-8">Violations Found</h3>
+          <div class="grid-2">
+            <div>
+              <h4>Critical</h4>
+              <ul id="violationsCritical" class="list"></ul>
+            </div>
+            <div>
+              <h4>High</h4>
+              <ul id="violationsHigh" class="list"></ul>
+            </div>
+            <div>
+              <h4>Medium</h4>
+              <ul id="violationsMedium" class="list"></ul>
+            </div>
+            <div>
+              <h4>Low</h4>
+              <ul id="violationsLow" class="list"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <details class="card mt-8" open>
+        <summary class="card__header"><h3>Penalty Information</h3></summary>
+        <div class="card__body">
+          <ul id="penaltiesList" class="list"></ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- RECOMMENDATIONS -->
+    <section id="section-recommendations" class="section" aria-labelledby="section-recommendations-title">
+      <h2 id="section-recommendations-title" class="mb-8">Detailed Recommendations</h2>
+      <div id="recommendationsContainer" class="recommendations"></div>
+    </section>
+
+    <!-- EXPORT / REPORT -->
+    <section id="section-export" class="section" aria-labelledby="section-export-title">
+      <h2 id="section-export-title" class="mb-8">Export Compliance Report</h2>
+      <div class="card">
+        <div class="card__body">
+          <p class="mb-8">Generate a full report including input data, rule validation results, recommendations, and legal references.</p>
+          <div class="flex gap-16">
+            <button id="downloadReport" class="btn btn--primary">Download JSON Report</button>
+            <button id="printReport" class="btn btn--secondary">Print Report</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-8">
+        <div class="card__body">
+          <h3 class="mb-8">Printable Report Preview</h3>
+          <div id="printPreview" class="print-preview"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="container flex justify-between items-center">
+      <p>© 2025 Legal Metrology Compliance Tool</p>
+      <a href="https://consumeraffairs.nic.in/organisation-bureau-indian-standards" target="_blank" rel="noopener">Reference: Ministry of Consumer Affairs</a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
